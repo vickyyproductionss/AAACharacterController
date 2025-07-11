@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveVelocity;
     private float maxSpeed;
 
+    public WeaponController weaponController;
+
     void Start()
     {
         // Find camera if not assigned
@@ -114,8 +116,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsFiring", isFiring);
         if (isFiring)
         {
-            // Add shooting logic here, e.g., instantiate bullets, play shooting sound, etc.
-            Debug.Log("Player is firing!");
+            weaponController.StartAiming();
+        }
+        else
+        {
+            weaponController.StopAiming();
         }
     }
     public void HandleReload()
