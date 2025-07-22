@@ -11,6 +11,8 @@ public class ThirdPersonCamera : MonoBehaviour
     private float yaw;
     private float pitch;
 
+    public WeaponController weaponController;
+
     void Start()
     {
         yaw = target.eulerAngles.y;
@@ -53,7 +55,7 @@ public class ThirdPersonCamera : MonoBehaviour
         transform.rotation = Quaternion.Euler(pitch, yaw, 0);
 
         // Position the camera behind the target
-        Vector3 desiredPosition = target.position - transform.forward * distance + Vector3.up * 1.2f; // Adjust height as needed
-        transform.position = desiredPosition;
+        Vector3 desiredPosition = target.position - transform.forward * distance + Vector3.up * 1.2f + weaponController.aimOffset;
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 20f);
     }
 }
